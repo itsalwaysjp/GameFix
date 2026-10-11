@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameFix — FC Gameplay Troubleshooter</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0c12;--panel:#121722;--panel2:#171e2c;--line:#293247;--text:#f4f6fb;--muted:#a5afc2;--lime:#c8ff55;--purple:#a78bfa;--red:#ff7e8b;--green:#9ef0b2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#202343 0%,transparent 34%),var(--bg);color:var(--text);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1120px;margin:auto;padding:24px 18px 56px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}.brand{display:flex;gap:11px;align-items:center;font-weight:850;font-size:1.2rem;letter-spacing:.2px}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--lime);color:#10140a;font-weight:950;font-size:1.2rem}.pill{border:1px solid #41485b;border-radius:999px;padding:6px 11px;color:#d1d6e3;font-size:.8rem}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:stretch;margin-bottom:24px}.eyebrow{color:var(--lime);font-size:.76rem;font-weight:800;letter-spacing:1.7px;text-transform:uppercase}.hero h1{font-size:clamp(2.3rem,6vw,4.4rem);line-height:.98;letter-spacing:-2.5px;margin:12px 0 18px}.hero h1 span{color:var(--lime)}.hero p{max-width:640px;color:var(--muted);font-size:1.02rem}.hero-card,.panel,.stat{border:1px solid var(--line);background:linear-gradient(145deg,rgba(24,31,46,.96),rgba(14,18,28,.96));border-radius:22px}.hero-card{padding:24px;display:flex;flex-direction:column;justify-content:space-between;min-height:245px;position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #3d4a65;border-radius:50%;right:-55px;top:-50px;box-shadow:0 0 0 25px #ffffff04,0 0 0 50px #ffffff03}.hero-card .big{font-size:3.2rem;line-height:1;margin:15px 0}.hero-card p{font-size:.9rem;margin-bottom:0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}.stat{padding:15px 18px}.stat strong{display:block;font-size:1.4rem}.stat span{font-size:.8rem;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);gap:20px;align-items:start}.panel{padding:22px}.panel h2{font-size:1.18rem;margin:0 0 6px}.sub{color:var(--muted);font-size:.9rem;margin:0 0 20px}.field{margin:16px 0}.field label{display:block;font-weight:700;font-size:.9rem;margin-bottom:8px}.field select,.field input,.field textarea{width:100%;background:#0b1019;border:1px solid #303a4f;color:var(--text);border-radius:12px;padding:12px 13px;outline:none}.field select:focus,.field input:focus,.field textarea:focus{border-color:var(--lime);box-shadow:0 0 0 3px #c8ff551c}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}.choice span{display:block;border:1px solid #303a4f;border-radius:12px;padding:11px 12px;color:#c7cede;background:#0d121c;min-height:48px;font-size:.88rem}.choice input:checked+span{border-color:var(--lime);background:#c8ff5510;color:#f6ffdf;box-shadow:inset 0 0 0 1px #c8ff5530}.choice input:focus-visible+span{outline:2px solid var(--lime)}.btn{border:0;border-radius:12px;padding:13px 17px;font-weight:850;background:var(--lime);color:#14190b;width:100%;transition:transform .12s}.btn:hover{transform:translateY(-1px)}.btn.secondary{background:#222b3c;color:#edf1fb;border:1px solid #354158}.btn-row{display:flex;gap:10px;margin-top:20px}.btn-row .btn{flex:1}.result{display:none}.result.show{display:block}.risk{display:inline-flex;align-items:center;gap:8px;border:1px solid #3c4a5d;border-radius:999px;padding:5px 10px;font-size:.78rem;font-weight:800;margin-bottom:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--purple)}.result h3{font-size:1.55rem;line-height:1.15;margin:4px 0 10px}.result p{color:#c2cad8}.notice{padding:12px 14px;border-radius:12px;background:#c8ff550d;border:1px solid #c8ff5530;color:#e4f4c3;font-size:.86rem;margin:14px 0}.steps{list-style:none;padding:0;margin:14px 0;counter-reset:step}.steps li{position:relative;padding:0 0 16px 42px;color:#d9deea}.steps li:before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#252d40;color:var(--lime);font-weight:900;font-size:.8rem}.steps strong{display:block;margin-bottom:3px}.steps small{display:block;color:var(--muted);font-size:.85rem}.feedback{display:flex;gap:8px;margin-top:12px}.feedback button{flex:1;border:1px solid #364159;background:#161d2b;color:#eef2fa;border-radius:10px;padding:10px}.feedback button:hover{border-color:var(--lime)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 12px}.section-head h2{margin:0;font-size:1.15rem}.text-btn{border:0;background:none;color:var(--lime);font-weight:750}.history{display:grid;gap:10px}.empty{padding:22px;border:1px dashed #354057;border-radius:14px;color:var(--muted);text-align:center;font-size:.9rem}.history-item{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:#111722;display:flex;align-items:center;justify-content:space-between;gap:12px}.history-item strong{display:block}.history-item small{color:var(--muted)}.tag{font-size:.72rem;padding:4px 8px;border-radius:999px;background:#202b3b;color:#dbe5f5;white-space:nowrap}.footer{margin-top:28px;color:#7f8aa0;font-size:.78rem;text-align:center}.toast{display:none;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#e8f9c6;color:#17200a;border-radius:12px;padding:11px 16px;font-weight:800;box-shadow:0 8px 40px #0008;z-index:4}.toast.show{display:block}
+@media(max-width:780px){.hero,.layout{grid-template-columns:1fr}.hero-card{min-height:190px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:1.2rem}.panel{padding:18px}.hero h1{letter-spacing:-1.5px}}
+@media(max-width:420px){.choices{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.top{align-items:flex-start}.pill{font-size:.7rem}.btn-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">GF</div><span>GameFix</span></div>
+    <span class="pill">COMMUNITY BUILT · BETA</span>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">EA SPORTS FC · Gameplay support</div>
+      <h1>Fix the glitch.<br><span>Get back in game.</span></h1>
+      <p>Describe what happened in your match. GameFix gives you a practical troubleshooting path and helps you track what works—without pretending every glitch has the same cause.</p>
+    </div>
+    <div class="hero-card">
+      <div>
+        <div class="eyebrow">Your next match starts here</div>
+        <div class="big">⚡ 🎮</div>
+        <strong>Diagnose smarter, not harder.</strong>
+      </div>
+      <p>Built for console players · PlayStation & Xbox</p>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Your troubleshooting stats">
+    <div class="stat"><strong id="checksCount">0</strong><span>Checks run this browser</span></div>
+    <div class="stat"><strong id="helpedCount">0</strong><span>Fixes marked helpful</span></div>
+    <div class="stat"><strong id="trackedCount">0</strong><span>Issues tracked</span></div>
+  </section>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Tell us what happened</h2>
+      <p class="sub">Choose the closest match. You can run another check any time.</p>
+      <form id="diagnosticForm">
+        <div class="field">
+          <label for="game">Game</label>
+          <select id="game">
+            <option>EA SPORTS FC 26</option>
+            <option>EA SPORTS FC 25</option>
+            <option>Another football game</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="platform">Platform</label>
+          <select id="platform">
+            <option>PlayStation 5</option><option>PlayStation 4</option>
+            <option>Xbox Series X|S</option><option>Xbox One</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="symptom">What did you notice?</label>
+          <select id="symptom" required>
+            <option value="animation">Player stuck, frozen, or animation looks broken</option>
+            <option value="teleport">Player or ball suddenly teleported / snapped position</option>
+            <option value="physics">Ball physics or collision looked unrealistic</option>
+            <option value="visual">Visual glitch, flicker, or missing textures</option>
+            <option value="repeat">The same strange event keeps happening</option>
+            <option value="unknown">Something else / not sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>When did it happen?</label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="when" value="online" checked><span>Online match</span></label>
+            <label class="choice"><input type="radio" name="when" value="offline"><span>Offline / Kick-Off</span></label>
+            <label class="choice"><input type="radio" name="when" value="both"><span>Both online & offline</span></label>
+            <label class="choice"><input type="radio" name="when" value="menus"><span>Menus / cutscenes</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="frequency">How often?</label>
+          <select id="frequency">
+            <option value="once">Only once</option>
+            <option value="sometimes" selected>Sometimes</option>
+            <option value="often">Almost every match</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="details">Extra details (optional)</label>
+          <textarea id="details" rows="3" maxlength="350" placeholder="Example: It happened after a tackle in the 70th minute..."></textarea>
+        </div>
+        <button class="btn" type="submit">Run my diagnosis →</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div id="emptyResult">
+        <div class="eyebrow">Your report</div>
+        <h2 style="margin-top:10px">Your diagnosis will appear here</h2>
+        <p class="sub" style="margin-top:10px">Answer the questions, then run a check. You’ll get possible causes, ordered steps to try, and a reminder of what the results can—and cannot—prove.</p>
+        <div class="notice">Tip: If you can reproduce the issue offline, that is useful evidence that it may not be caused by online connection quality alone.</div>
+        <div style="border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:18px">
+          <div class="eyebrow">GameFix approach</div>
+          <p style="margin:8px 0 0;color:#d3d9e5">Observe → isolate → try one change → test again → record the result.</p>
+        </div>
+      </div>
+      <div id="result" class="result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <section class="section-head">
+    <h2>Recent issue reports</h2>
+    <button class="text-btn" id="clearHistory" type="button">Clear history</button>
+  </section>
+  <section class="history" id="history" aria-live="polite"></section>
+  <div class="footer">GameFix is an independent prototype, not affiliated with EA, PlayStation, or Xbox. It does not access game telemetry or confirm live server faults. Advice is based on the symptoms you report.</div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const STORAGE_KEY = "gamefix_reports_v1";
+  let currentReportId = null;
+
+  const advice = {
+    animation: {
+      title: "Check whether the glitch is reproducible",
+      confidence: "Initial assessment · cause unconfirmed",
+      causes: [
+        "A one-off animation, collision, or gameplay-state bug.",
+        "A game update or mode-specific issue if it repeats in the same situation.",
+        "Online desynchronization if the event occurs only during online matches."
+      ],
+      steps: [
+        ["Try the same situation offline","Play a short Kick-Off match and see whether a similar animation issue appears."],
+        ["Fully close and relaunch the game","Return to the console home screen, close the game completely, then reopen it."],
+        ["Check for updates","Install available game and console system updates. If the issue began after an update, note that in your report."],
+        ["Record a short clip","Capture what happened, the game mode, and the approximate match time so the issue can be compared or reported."]
+      ]
+    },
+    teleport: {
+      title: "Separate online desync from a gameplay bug",
+      confidence: "Initial assessment · cause unconfirmed",
+      causes: [
+        "A temporary connection or synchronization problem in an online match.",
+        "A game-side positioning or animation issue.",
+        "A local performance issue, especially if other visual symptoms appear too."
+      ],
+      steps: [
+        ["Compare online and offline play","Test a short offline match. If it only occurs online, connection or synchronization becomes more plausible."],
+        ["Check connection stability","If available, review in-game connection indicators and your console network test. A single ping result cannot rule out packet loss or jitter."],
+        ["Prefer a stable connection","If practical, test Ethernet instead of Wi‑Fi and pause large downloads or streaming on your network."],
+        ["Capture and log the event","Note the mode, time, opponent situation, and whether it repeats. Avoid claiming it is a server outage without independent evidence."]
+      ]
+    },
+    physics: {
+      title: "Test whether the collision or ball event repeats",
+      confidence: "Initial assessment · cause unconfirmed",
+      causes: [
+        "A rare collision or physics interaction.",
+        "A mode-specific or update-related gameplay issue.",
+        "Synchronization differences if it appears only online."
+      ],
+      steps: [
+        ["Try to reproduce it offline","Use the same mode or a similar situation in Kick-Off, if possible."],
+        ["Test a different match situation","See whether it happens with different players, teams, or match conditions."],
+        ["Restart and check updates","Fully close the game and verify that the game and console are up to date."],
+        ["Save evidence","Record a clip and note the teams, mode, and sequence of events. Repeated, clear examples are more useful than a vague report."]
+      ]
+    },
+    visual: {
+      title: "Isolate a display issue from a game glitch",
+      confidence: "Initial assessment · cause unconfirmed",
+      causes: [
+        "A temporary rendering or game asset issue.",
+        "A display / HDMI / TV setting issue if similar symptoms appear outside the game.",
+        "A game-specific issue if it only appears in FC."
+      ],
+      steps: [
+        ["Check another screen or game if available","This can help tell whether the symptom is limited to one game or display setup."],
+        ["Restart the game and console","Fully close the game and restart the console normally."],
+        ["Review display settings","If the issue is flickering or visual artifacts, test a supported display mode and check that the HDMI connection is secure."],
+        ["Document the exact symptom","Capture a clip or screenshot and note whether it occurs in gameplay, menus, or cutscenes."]
+      ]
+    },
+    repeat: {
+      title: "Collect evidence around the repeatable event",
+      confidence: "Repeatability is useful evidence · cause unconfirmed",
+      causes: [
+        "A repeatable game-state, animation, or collision issue.",
+        "A specific mode, player, or situation triggering the behavior.",
+        "An online-only synchronization issue if it cannot be reproduced offline."
+      ],
+      steps: [
+        ["Write down the reproduction steps","Record the mode, actions immediately before the glitch, and whether the same players or situation are involved."],
+        ["Change one variable at a time","Try a different mode or team so you can see whether the issue follows a particular situation."],
+        ["Compare online with offline","This is a useful first test, though not definitive proof of the cause."],
+        ["Keep a clip and report","Share concise evidence through the game's official support channels if it continues."]
+      ]
+    },
+    unknown: {
+      title: "Start with a simple isolate-and-test check",
+      confidence: "Not enough detail yet · cause unconfirmed",
+      causes: [
+        "The symptom could have several causes; more detail is needed to narrow it down.",
+        "Whether it happens offline is one of the most useful clues.",
+        "A repeatable clip can help distinguish a one-off event from a recurring problem."
+      ],
+      steps: [
+        ["Fully restart the game","Close it rather than only returning to the console home screen."],
+        ["Test a short offline match","See whether the same symptom occurs without an online opponent."],
+        ["Check for updates","Make sure the game and console system software are current."],
+        ["Describe the exact sequence","Record what you did, what the game did, and whether it has happened more than once."]
+      ]
+    }
+  };
+
+  function getReports(){
+    try { const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); return Array.isArray(data) ? data : []; }
+    catch(e){ return []; }
+  }
+  function saveReports(reports){ localStorage.setItem(STORAGE_KEY, JSON.stringify(reports)); }
+  function escapeHTML(value){
+    return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function showToast(message){
+    const t=$("toast"); t.textContent=message; t.classList.add("show");
+    window.clearTimeout(showToast.timer); showToast.timer=window.setTimeout(()=>t.classList.remove("show"),2200);
+  }
+  function updateStats(){
+    const reports=getReports();
+    $("checksCount").textContent=reports.length;
+    $("helpedCount").textContent=reports.filter(r=>r.feedback==="helpful").length;
+    $("trackedCount").textContent=reports.length;
+  }
+  function renderHistory(){
+    const reports=getReports().slice().reverse();
+    const root=$("history");
+    if(!reports.length){ root.innerHTML='<div class="empty">No reports yet. Run your first diagnosis to start tracking glitches.</div>'; updateStats(); return; }
+    root.innerHTML=reports.slice(0,8).map(r=>`
+      <article class="history-item">
+        <div><strong>${escapeHTML(r.symptomLabel)}</strong><small>${escapeHTML(r.game)} · ${escapeHTML(r.platform)} · ${escapeHTML(r.whenLabel)} · ${escapeHTML(r.date)}</small></div>
+        <span class="tag">${r.feedback==="helpful"?"Helpful":r.feedback==="not-helpful"?"Not helpful":"Tracked"}</span>
+      </article>`).join("");
+    updateStats();
+  }
+  function createDiagnosis(e){
+    e.preventDefault();
+    const symptom=$("symptom").value;
+    const item=advice[symptom] || advice.unknown;
+    const when=document.querySelector('input[name="when"]:checked').value;
+    const whenLabels={online:"Online",offline:"Offline",both:"Online + offline",menus:"Menus / cutscenes"};
+    const symptomLabels={
+      animation:"Broken / stuck animation",teleport:"Player or ball teleported",physics:"Unrealistic ball physics",
+      visual:"Visual glitch",repeat:"Repeated gameplay glitch",unknown:"Other / unknown glitch"
+    };
+    const report={
+      id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+      game:$("game").value,platform:$("platform").value,symptom,symptomLabel:symptomLabels[symptom],
+      when,whenLabel:whenLabels[when],frequency:$("frequency").value,details:$("details").value.trim(),
+      date:new Date().toLocaleString(),feedback:null
+    };
+    const reports=getReports(); reports.push(report); saveReports(reports); currentReportId=report.id;
+    $("emptyResult").style.display="none";
+    $("result").classList.add("show");
+    $("result").innerHTML=`
+      <span class="risk"><span class="dot"></span>${item.confidence}</span>
+      <h3>${item.title}</h3>
+      <p>For <strong>${escapeHTML(report.game)}</strong> on <strong>${escapeHTML(report.platform)}</strong>, you reported: ${escapeHTML(report.symptomLabel.toLowerCase())}. It happened in: <strong>${escapeHTML(report.whenLabel)}</strong>.</p>
+      <h2 style="margin-top:20px">Possible causes to consider</h2>
+      <ul style="padding-left:20px;color:#c7cfde">${item.causes.map(c=>`<li style="margin:8px 0">${c}</li>`).join("")}</ul>
+      <h2 style="margin-top:20px">Try these steps in order</h2>
+      <ol class="steps">${item.steps.map(s=>`<li><strong>${s[0]}</strong><small>${s[1]}</small></li>`).join("")}</ol>
+      ${report.details?`<div class="notice"><strong>Your notes:</strong> ${escapeHTML(report.details)}</div>`:""}
+      <div class="notice">This is symptom-based guidance, not a confirmed diagnosis. GameFix does not access console telemetry or verify EA server status. Try one change at a time and compare results.</div>
+      <h2 style="margin-top:18px">Was this useful?</h2>
+      <div class="feedback"><button type="button" data-feedback="helpful">👍 Helpful</button><button type="button" data-feedback="not-helpful">👎 Not helpful</button></div>
+      <div class="btn-row"><button class="btn secondary" type="button" id="copyReport">Copy report</button><button class="btn secondary" type="button" id="newCheck">New check</button></div>`;
+    $("result").querySelectorAll("[data-feedback]").forEach(btn=>btn.addEventListener("click",()=>saveFeedback(btn.dataset.feedback)));
+    $("copyReport").addEventListener("click",()=>copyReport(report,item));
+    $("newCheck").addEventListener("click",()=>{ $("symptom").focus(); window.scrollTo({top:0,behavior:"smooth"}); });
+    renderHistory();
+    showToast("Diagnosis created and report saved");
+    if(window.innerWidth<780) $("result").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function saveFeedback(feedback){
+    const reports=getReports(); const idx=reports.findIndex(r=>r.id===currentReportId);
+    if(idx<0)return; reports[idx].feedback=feedback; saveReports(reports); renderHistory();
+    showToast(feedback==="helpful"?"Thanks — marked helpful":"Thanks — feedback recorded");
+    $("result").querySelectorAll("[data-feedback]").forEach(b=>{b.disabled=true;b.style.opacity=".55"});
+  }
+  async function copyReport(report,item){
+    const text=`GameFix issue report\nGame: ${report.game}\nPlatform: ${report.platform}\nSymptom: ${report.symptomLabel}\nWhen: ${report.whenLabel}\nFrequency: ${report.frequency}\nNotes: ${report.details||"None"}\nAssessment: ${item.title}\nPossible causes:\n- ${item.causes.join("\n- ")}\nNote: Symptom-based guidance only; cause is unconfirmed.`;
+    try{
+      if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text);}
+      else {const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();}
+      showToast("Report copied");
+    }catch(e){showToast("Could not copy automatically — select and copy your report");}
+  }
+  $("diagnosticForm").addEventListener("submit",createDiagnosis);
+  $("clearHistory").addEventListener("click",()=>{
+    if(!getReports().length){showToast("No history to clear");return;}
+    if(confirm("Delete all GameFix reports saved in this browser?")){localStorage.removeItem(STORAGE_KEY);renderHistory();showToast("History cleared");}
+  });
+  renderHistory();
+})();
+</script>
+</body>
+</html>
